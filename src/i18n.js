@@ -10,8 +10,9 @@ i18n
         translations: {
             "To get started, edit <1>src/App.js</1> and save to reload.":
             "To get started, edit <1>src/App.js</1> and save to reload.",
-            "Welcome to React": "Welcome Ira and Jeff's wedding list",
+            "Welcome to List": "Welcome Ira and Jeff's wedding list",
             welcome: "Hello <br/> <strong>World</strong>",
+            item_completed:'Already gifted ! Super!',
             blue_tshirt:'Blue T-Shirt',
             blue_tshirt_desc:'A dumb Blue T-Shirt. Cuz everybody likes blue',
             baking_robot:'Baking Robot',
@@ -28,8 +29,9 @@ i18n
         translations: {
             "To get started, edit <1>src/App.js</1> and save to reload.":
             "Starte in dem du, <1>src/App.js</1> editierst und speicherst.",
-            "Welcome to React": "Bienvenue dans la liste de mariage d'Ira et Jeff",
+            "Welcome to List": "Bienvenue dans la liste de mariage d'Ira et Jeff",
             welcome: "Allo <br/> <strong>Le Monde</strong>",
+            item_completed:'Déjà offert ! Super!',
             blue_tshirt:'T-Shirt bleu',
             blue_tshirt_desc:'un T-Shirt bleu tout bête. Pke le blu c\'est tout beau',
             baking_robot:'Robot Pétrisseur',

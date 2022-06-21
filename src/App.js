@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import ProductList from './components/ProductList';
 import React from "react";
@@ -36,26 +35,17 @@ function App() {
         //console.log('WORKS!');
     };
 
-    const index = 11;
-
     return (
         <div className="App">
             <header className="App-header">
                 <a onClick={() => changeLanguage("en")}>🇬🇧</a>
                 <a onClick={() => changeLanguage("fr")}>🇫🇷</a>
+                <h2>{t("Welcome to List")}</h2>
                 <a onClick={() => changeLanguage("fi")}>🇫🇮</a>
                 <a onClick={() => changeLanguage("ru")}>🇷🇺</a>
             </header>
-            <h2>{t("Welcome to React")}</h2>
             <p>
-                <Trans>
-                    To get started, edit <code>src/App.js</code> and save to reload.
-                </Trans>
-                <Trans i18nKey="welcome">trans</Trans>
-                <Trans>
-                    {index + 1} <a>xxx</a>
-                </Trans>
-                <p>{!items ? "Loading..." : JSON.stringify(items)}</p>
+                {!items ? "Loading..." : JSON.stringify(contributions)}
             </p>
             <ProductList items={!items ? [] : items} contributions={!contributions ? [] : contributions}/>
         </div>
