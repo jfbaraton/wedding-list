@@ -15,7 +15,13 @@ i18n
             blue_tshirt:'Blue T-Shirt',
             blue_tshirt_desc:'A dumb Blue T-Shirt. Cuz everybody likes blue',
             baking_robot:'Baking Robot',
-            baking_robot_desc:'Robot that saves bunbuns papattes when she bakes'
+            baking_robot_desc:'Robot that saves bunbuns papattes when she bakes',
+            printer:'3d Printer',
+            printer_desc:'For Ira to print the merch that she models',
+            plates_cutlery:'Table set',
+            plates_cutlery_desc:'For banquets at home',
+            piggy_bank:'Jackpot',
+            piggy_bank_desc:'Money for other presents, not listed here',
         }
       },
       fr: {
@@ -28,6 +34,12 @@ i18n
             blue_tshirt_desc:'un T-Shirt bleu tout bête. Pke le blu c\'est tout beau',
             baking_robot:'Robot Pétrisseur',
             baking_robot_desc:'Robot qui sauve les papattes d\'Ira quand elle pétrit une brioche ou monte des blancs en neige',
+            printer:'Imprimante 3d',
+            printer_desc:'Pour qu\'Ira puisse vendre les figurines qu\'elle modélise',
+            plates_cutlery:'Set de table',
+            plates_cutlery_desc:'Pour manger la soupe par grandes tablées',
+            piggy_bank:'Tirelire',
+            piggy_bank_desc:'Argent de poche pour d\'autres cadeaux',
         }
       }
     },

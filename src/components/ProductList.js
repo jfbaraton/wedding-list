@@ -6,11 +6,15 @@ class ProductList extends Component {
     super(props);
   }
 
+        //<ProductRow price='10€' item_picture='baking_robot.jpg' item_name='baking_robot'/>
+        //<ProductRow />
   render() {
     return (
       <div className="container main-content">
-        <ProductRow price='10€' item_picture='baking_robot.jpg' item_name='baking_robot'/>
-        <ProductRow />
+
+        {this.props.items.map(item => (
+            <ProductRow price={item.price+'€'} item_name={item.name} id={item.id}/>
+        ))}
       </div>
     );
   }
