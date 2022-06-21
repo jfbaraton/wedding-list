@@ -25,6 +25,7 @@ app.use(
 ); //or single
 
 app.get("/items", (req, res) => {
+    //console.log('GET items ');
     req.getConnection(function(err, myconnection) {
         if (err) {
             console.log("Error getConnection : %s ",err );
@@ -54,6 +55,7 @@ app.get("/items", (req, res) => {
 });
 
 app.get("/contributions", (req, res) => {
+    //console.log('GET contributions ');
     req.getConnection(function(err, myconnection) {
         if (err) {
             console.log("Error getConnection : %s ",err );
@@ -69,6 +71,52 @@ app.get("/contributions", (req, res) => {
 
         });
     });
+});
+app.get("/mySettings", (req, res) => {
+    console.log('GET mySettings ');
+    if(req.query && req.query.px && req.query.px.length < 10) {
+        req.getConnection(function(err, myconnection) {
+            if (err) {
+                console.log("Error getConnection : %s ",err );
+                res.send(500);
+            }
+
+            myconnection.query('SELECT language FROM people where hash = \''+req.query.px+'\'',function(err,rows) {
+
+                if(err)
+                    console.log("Error Selecting : %s ",err );
+
+                res.json({mySettings:rows});
+
+            });
+        });
+    } else {
+        res.json({mySettings:[]});
+    }
+});
+
+app.get("/myContributions", (req, res) => {
+    if(req.query && req.query.px && req.query.px.length < 10) {
+        //console.log('GET myContributions "'+req.query.px+'"');
+        req.getConnection(function(err, myconnection) {
+            if (err) {
+                console.log("Error getConnection : %s ",err );
+                res.send(500);
+            }
+
+            myconnection.query('SELECT ppl.name as name, count(cont.item_id) as gift_count, cont.type as type, sum(cont.amount) as amount FROM contributions as cont join people as ppl on cont.people_id = ppl.id where cont.state = 0 and ppl.hash = \''+req.query.px+'\' group by type',function(err,rows) {
+
+                if(err)
+                    console.log("Error Selecting : %s ",err );
+
+                res.json({myContributions:rows});
+
+            });
+        });
+    } else {
+        //console.log('GET myContributions NOPARAM '+(req.query ? req.query.px :0));
+        res.json({myContributions:[]});
+    }
 });
 
 app.post('/add_book',(req,res)=>{
