@@ -1,8 +1,12 @@
 import React from 'react';
 //import sampleImage from '/logo192.png';
 
+import { useTranslation, Trans } from "react-i18next";
+
 const ProductRow = (props) => {
-  return (
+    const { t, i18n } = useTranslation();
+
+    return (
     <div className="row product">
       <div className="col-md-2">
         <img src={process.env.PUBLIC_URL+ (props.item_picture || '/logo192.png')} alt="Sample Image" height="150" />
@@ -15,7 +19,7 @@ const ProductRow = (props) => {
         {props.price || '19.99€'}
       </div>
     </div>
-  );
+    );
 }
 
 export default ProductRow;
