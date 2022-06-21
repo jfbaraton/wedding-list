@@ -9,7 +9,7 @@ class ProductList extends Component {
   render() {
     return (
       <div className="container main-content">
-        <ProductRow price='10€' item_picture='baking_robot.jpg' item_name='Baking Robot' item_description='Robot that saves bunbuns papattes when she bakes' />
+        <ProductRow price='10€' item_picture='baking_robot.jpg' item_name='baking_robot'/>
         <ProductRow />
       </div>
     );

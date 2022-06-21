@@ -17,19 +17,21 @@ function App() {
     return (
         <div className="App">
             <header className="App-header">
-                <h2>{t("Welcome to React")}</h2>
-                <button onClick={() => changeLanguage("de")}>de</button>
-                <button onClick={() => changeLanguage("en")}>en</button>
-                <p>
-                    <Trans>
-                        To get started, edit <code>src/App.js</code> and save to reload.
-                    </Trans>
-                    <Trans i18nKey="welcome">trans</Trans>
-                    <Trans>
-                        {index + 1} <a>xxx</a>
-                    </Trans>
-                </p>
+                <a onClick={() => changeLanguage("en")}>🇬🇧</a>
+                <a onClick={() => changeLanguage("fr")}>🇫🇷</a>
+                <a onClick={() => changeLanguage("fi")}>🇫🇮</a>
+                <a onClick={() => changeLanguage("ru")}>🇷🇺</a>
             </header>
+            <h2>{t("Welcome to React")}</h2>
+            <p>
+                <Trans>
+                    To get started, edit <code>src/App.js</code> and save to reload.
+                </Trans>
+                <Trans i18nKey="welcome">trans</Trans>
+                <Trans>
+                    {index + 1} <a>xxx</a>
+                </Trans>
+            </p>
             <ProductList />
         </div>
     );

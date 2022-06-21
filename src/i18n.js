@@ -8,17 +8,26 @@ i18n
     resources: {
       en: {
         translations: {
-          "To get started, edit <1>src/App.js</1> and save to reload.":
+            "To get started, edit <1>src/App.js</1> and save to reload.":
             "To get started, edit <1>src/App.js</1> and save to reload.",
-          "Welcome to React": "Welcome to React and react-i18next",
-          welcome: "Hello <br/> <strong>World</strong>"
+            "Welcome to React": "Welcome Ira and Jeff's wedding list",
+            welcome: "Hello <br/> <strong>World</strong>",
+            blue_tshirt:'Blue T-Shirt',
+            blue_tshirt_desc:'A dumb Blue T-Shirt. Cuz everybody likes blue',
+            baking_robot:'Baking Robot',
+            baking_robot_desc:'Robot that saves bunbuns papattes when she bakes'
         }
       },
-      de: {
+      fr: {
         translations: {
-          "To get started, edit <1>src/App.js</1> and save to reload.":
+            "To get started, edit <1>src/App.js</1> and save to reload.":
             "Starte in dem du, <1>src/App.js</1> editierst und speicherst.",
-          "Welcome to React": "Willkommen bei React und react-i18next"
+            "Welcome to React": "Bienvenue dans la liste de mariage d'Ira et Jeff",
+            welcome: "Allo <br/> <strong>Le Monde</strong>",
+            blue_tshirt:'T-Shirt bleu',
+            blue_tshirt_desc:'un T-Shirt bleu tout bête. Pke le blu c\'est tout beau',
+            baking_robot:'Robot Pétrisseur',
+            baking_robot_desc:'Robot qui sauve les papattes d\'Ira quand elle pétrit une brioche ou monte des blancs en neige',
         }
       }
     },

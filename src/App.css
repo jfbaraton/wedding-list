@@ -15,6 +15,24 @@
 
 .App-header {
   background-color: #282c34;
+  min-height: 5vh;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  //margin: 1rem 1rem 1rem 1rem;
+  justify-content: right;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-header a {
+  flex-direction: row;
+  margin: 1rem 1rem 1rem 1rem;
+}
+
+.main-content {
+  background-color: #282c34;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
