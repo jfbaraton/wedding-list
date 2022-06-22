@@ -66,12 +66,15 @@ const ProductRow = (props) => {
         }
     };
 
-    const renderButtons = (props, pay) => {
+    const renderBuyButton = (props, pay) => {
         if(!props.is_completed && !isCompleted && props.item_id > 1) {
-            return <div>
-            <img src={process.env.PUBLIC_URL+'/buy_gift.png'} height="75" alt="I buy the gift and bring it" title={t('I buy the gift and bring it')} onClick={() => buy(props.item_id)} />
-            <img src={process.env.PUBLIC_URL+'/donate_money.jpg'} height="75" alt="I buy the gift and bring it" title={t('Offer money to help buy this gift')} onClick={()=> pay(props.item_id)}/>
-            </div>
+            return <img src={process.env.PUBLIC_URL+'/buy_gift.png'} height="75" alt="I buy the gift and bring it" title={t('I buy the gift and bring it')} onClick={() => buy(props.item_id)} />
+        }
+        return <div></div>
+    }
+    const renderPayButton = (props, pay) => {
+        if(!props.is_completed && !isCompleted) {
+            return <img src={process.env.PUBLIC_URL+'/donate_money.jpg'} height="75" alt="I buy the gift and bring it" title={t('Offer money to help buy this gift')} onClick={()=> pay(props.item_id)}/>
         }
         return <div></div>
     }
@@ -86,8 +89,11 @@ const ProductRow = (props) => {
             <p><Trans i18nKey={(props.item_name || 'blue_tshirt')+'_desc'}>trans</Trans></p>
         </div>
         <div className="col-md-2 product-price">
-            {props.is_completed || isCompleted ? t('item_completed') : ( (props.contributions ? props.contributions+'€ / ' : '')+ (props.price || '-19.99€'))}
-            {renderButtons(props, pay)}
+            {props.is_completed || isCompleted ? t('item_completed') : ( (props.contributions ? props.contributions+'€ ' : '')+ (props.item_id > 1 ? '/ '+(props.price || '-19.99')+'€' : ''))}
+            <div>
+            {renderBuyButton(props, pay)}
+            {renderPayButton(props, pay)}
+            </div>
         </div>
 
 

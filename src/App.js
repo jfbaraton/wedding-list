@@ -10,6 +10,7 @@ function App() {
     const [contributions, setContributions] = React.useState(null);
     const [myContributions, setMyContributions] = React.useState(null);
     const [myName, setMyName] = React.useState(null);
+    const [updateTime, setUpdateTime] = React.useState(null);
 
     const qs = require('qs');
 
@@ -44,7 +45,11 @@ function App() {
         };
         fetch('/pay', payRequestOptions)
         .then(response => response.json())
-        .then(data => this.setState({ update: Date.now() }));
+        .then(data => {
+            //this.setState({ update: Date.now() })
+            setUpdateTime(Date.now());
+            console.log(updateTime);
+        });
     }
 
     React.useEffect(() => {
@@ -59,22 +64,12 @@ function App() {
                     }
                 }
             );
-            /*.then((data) =>
-                setState((prevState) => ({
-                   items: data.items
-                }))
-            );*/
     }, []);
 
     React.useEffect(() => {
         fetch("/items")
             .then((res) => res.json())
             .then((data) => setItems(data.items));
-            /*.then((data) =>
-                setState((prevState) => ({
-                   items: data.items
-                }))
-            );*/
     }, []);
     React.useEffect(() => {
         fetch("/contributions")
@@ -85,7 +80,7 @@ function App() {
                    contributions: data.contributions
                 }))
             );*/
-    }, []);
+    }, [updateTime]);
     React.useEffect(() => {
         fetch("/myContributions?px="+px)
             .then((res) => res.json())
@@ -95,7 +90,7 @@ function App() {
                    contributions: data.contributions
                 }))
             );*/
-    }, []);
+    }, [updateTime]);
 
 
     console.log('your_contribution_0 ',myContributions);
@@ -125,6 +120,7 @@ function App() {
                 contributions={!contributions ? [] : contributions}
                 payAction = {payAction}
                 />
+            <div display="none">{updateTime}</div>
         </div>
     );
 }

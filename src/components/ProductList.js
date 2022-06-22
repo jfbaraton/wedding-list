@@ -33,7 +33,7 @@ class ProductList extends Component {
             <div className="container main-content">
                 {this.props.items.map(item => (
                     <ProductRow
-                        price={item.price+'€'}
+                        price={item.price}
                         item_name={item.name}
                         item_id={item.id}
                         key={item.id}
