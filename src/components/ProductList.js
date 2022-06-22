@@ -40,6 +40,7 @@ class ProductList extends Component {
                         is_completed={item.is_completed || false}
                         contributions={item.contributions || 0}
                         payAction = {this.props.payAction}
+                        buyAction = {this.props.buyAction}
                         />
                 ))}
             </div>

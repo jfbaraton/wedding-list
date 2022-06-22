@@ -46,7 +46,41 @@ function App() {
         fetch('/pay', payRequestOptions)
         .then(response => response.json())
         .then(data => {
-            //this.setState({ update: Date.now() })
+            setUpdateTime(Date.now());
+            console.log(updateTime);
+        });
+    }
+
+    const buyAction = (item_id, amount, message) => {
+        const payRequestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                px:localStorage.getItem('px'),
+                item_id:item_id,
+                amount:amount,
+                message:message
+            })
+        };
+        fetch('/buy', payRequestOptions)
+        .then(response => response.json())
+        .then(data => {
+            setUpdateTime(Date.now());
+            console.log(updateTime);
+        });
+    }
+
+    const cancelAction = () => {
+        const payRequestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                px:localStorage.getItem('px')
+            })
+        };
+        fetch('/cancel', payRequestOptions)
+        .then(response => response.json())
+        .then(data => {
             setUpdateTime(Date.now());
             console.log(updateTime);
         });
@@ -93,7 +127,10 @@ function App() {
     }, [updateTime]);
 
 
-    console.log('your_contribution_0 ',myContributions);
+    const renderCancelButton = () => {
+        return <img src={process.env.PUBLIC_URL+'/remove.png'} height="15" alt={t('cancel')} title={t('cancel')} onClick={() => cancelAction()} />
+    }
+
     return (
         <div className="App">
             <header className="App-header">
@@ -111,14 +148,17 @@ function App() {
                 {!myName || !myContributions ? "" : !myContributions.length ? '' : (
                     t('your_contribution_1')+
                     (myContributions[0].type == 'Pay' ? (myContributions[0].amount+'€') : (myContributions[0].gift_count+t('your_contribution_3')))+
-                    (myContributions.length == 1 ? '.' : (t('your_contribution_2') + (myContributions[1].type == 'Pay' ? (myContributions[1].amount+'€') : (myContributions[1].gift_count+t('your_contribution_3'))) +'.'))
+                    (myContributions.length == 1 ? '.' : (t('your_contribution_2') + (myContributions[1].type == 'Pay' ? (myContributions[1].amount+'€') : (myContributions[1].gift_count+t('your_contribution_3'))) +'.'))+
+                    t('your_contribution_4')
                 )}
+                {!myName || !myContributions ? "" : !myContributions.length ? '' : renderCancelButton()}
 
             </p>
             <ProductList
                 items={!items ? [] : items}
                 contributions={!contributions ? [] : contributions}
                 payAction = {payAction}
+                buyAction = {buyAction}
                 />
             <div display="none">{updateTime}</div>
         </div>

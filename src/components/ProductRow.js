@@ -18,15 +18,15 @@ const ProductRow = (props) => {
         } else {
             localStorage.getItem('px');
             confirmAlert({
-                title: 'Confirm to submit',
-                message: 'Are you sure to do this.',
+                title: t('Confirm to submit'),
+                message: t('You buy the present by yourself and bring it to Ira and Jeff. (Other contributions for this item will be re-allocated)'),
                 buttons: [
                     {
-                        label: 'Yes',
-                        onClick: () => alert('Click Yes '+props.item_id)
+                        label: t('Confirm'),
+                        onClick: () => props.buyAction(props.item_id, 1, 'WIP')
                     },
                     {
-                        label: 'No',
+                        label: t('Cancel'),
                         onClick: () => console.log('Click No'+props)
                     }
                 ]
@@ -45,8 +45,8 @@ const ProductRow = (props) => {
               customUI: ({ onClose }) => {
                 return (
                   <div className='custom-ui'>
-                    <h1>How much do you want to put?</h1>
-                    <p>amount</p>
+                    <h1>{t('How much do you want to put?')}</h1>
+                    <p>{t('amount')}</p>
                     <input type="number" id={'pay_'+props.item_id+'_amount'} />€
                     <button
                       onClick={($this) => {
@@ -56,9 +56,9 @@ const ProductRow = (props) => {
                         }
                       }
                     >
-                      Yes, Delete it!
+                      {t('Confirm')}
                     </button>
-                    <button onClick={onClose}>No</button>
+                    <button onClick={onClose}>{t('Cancel')}</button>
                   </div>
                 );
               }
@@ -89,7 +89,7 @@ const ProductRow = (props) => {
             <p><Trans i18nKey={(props.item_name || 'blue_tshirt')+'_desc'}>trans</Trans></p>
         </div>
         <div className="col-md-2 product-price">
-            {props.is_completed || isCompleted ? t('item_completed') : ( (props.contributions ? props.contributions+'€ ' : '')+ (props.item_id > 1 ? '/ '+(props.price || '-19.99')+'€' : ''))}
+            {props.is_completed || isCompleted ? t('item_completed') : ( (props.contributions ? props.contributions+'€ ' : '0€')+ (props.item_id > 1 ? '/ '+(props.price || '-19.99')+'€' : ''))}
             <div>
             {renderBuyButton(props, pay)}
             {renderPayButton(props, pay)}

@@ -116,6 +116,7 @@ app.post('/pay',(req,res)=>{
     if(!px || px.length > 10 ) return res.status(400).json('Arg');
     if(!item_id) return res.status(400).json('Arg item_id');
     if(!amount || amount<=0 || amount >10000) return res.status(400).json('Arg amount');
+    console.log('Pay '+item_id+' '+amount+'€');
 
     req.getConnection(function(err, myconnection) {
         if (err) {
@@ -123,16 +124,74 @@ app.post('/pay',(req,res)=>{
             res.send(500);
         }
 
-        myconnection.query("INSERT INTO contributions (item_id, people_id, comment, type, amount) VALUES (5,(SELECT id from people where hash='"+SQLsanitize(px)+"'), '"+SQLsanitize(message)+"', 'Pay' , "+amount+")",
+        myconnection.query("INSERT INTO contributions (item_id, people_id, comment, type, amount) VALUES ("+SQLsanitize(''+item_id)+",(SELECT id from people where hash='"+SQLsanitize(px)+"'), '"+SQLsanitize(message)+"', 'Pay' , "+SQLsanitize(''+amount)+")",
             function(err, rows)
             {
                 if (err) {
                 //If error
-                    res.status(400).json('Sorry!!Unable To Add');
+                    res.status(400).json('Sorry!!Unable To Pay');
                     console.log("Error inserting : %s ",err );
                 }else {
                 //If success
                     res.status(200).json('Contribution Added Successfully!!')
+                }
+        });
+    });
+});
+
+app.post('/buy',(req,res)=>{
+
+    let {px,item_id, message} = req.body;
+    var amount = 1;
+
+
+    if(!px || px.length > 10 ) return res.status(400).json('Arg');
+    if(!item_id) return res.status(400).json('Arg item_id');
+
+    req.getConnection(function(err, myconnection) {
+        if (err) {
+            console.log("Error getConnection : %s ",err );
+            res.send(500);
+        }
+
+        myconnection.query("INSERT INTO contributions (item_id, people_id, comment, type, amount) VALUES ("+SQLsanitize(''+item_id)+",(SELECT id from people where hash='"+SQLsanitize(px)+"'), '"+SQLsanitize(message)+"', 'Buy' , "+SQLsanitize(''+amount)+")",
+            function(err, rows)
+            {
+                if (err) {
+                //If error
+                    res.status(400).json('Sorry!!Unable To Buy');
+                    console.log("Error inserting : %s ",err );
+                }else {
+                //If success
+                    res.status(200).json('Contribution Added Successfully!!')
+                }
+        });
+    });
+});
+
+app.post('/cancel',(req,res)=>{
+
+    let {px} = req.body;
+
+
+    if(!px || px.length > 10 ) return res.status(400).json('Arg');
+
+    req.getConnection(function(err, myconnection) {
+        if (err) {
+            console.log("Error getConnection : %s ",err );
+            res.send(500);
+        }
+
+        myconnection.query("UPDATE contributions c1 join (SELECT max(c3.id) as max_id from contributions c3 join people p1 on c3.people_id = p1.id where c3.state = 0 and p1.hash='"+SQLsanitize(px)+"') c2 on c1.id = c2.max_id SET c1.state = 2",
+            function(err, rows)
+            {
+                if (err) {
+                //If error
+                    res.status(400).json('Sorry!!Unable To Cancel');
+                    console.log("Error inserting : %s ",err );
+                }else {
+                //If success
+                    res.status(200).json('Contribution Cancelled Successfully!!')
                 }
         });
     });
