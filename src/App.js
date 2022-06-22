@@ -159,8 +159,7 @@ function App() {
                 contributions={!contributions ? [] : contributions}
                 payAction = {payAction}
                 buyAction = {buyAction}
-                />
-            <div display="none">{updateTime}</div>
+            />
         </div>
     );
 }
