@@ -72,6 +72,8 @@ i18n
             piggy_bank:'Tirelire',
             piggy_bank_desc:'Argent de poche pour d\'autres cadeaux',
 
+            'I buy the gift and bring it':'J\'achète ce cadeau et je l\'amènerai au mariage',
+            'Offer money to help buy this gift':'J\'ajoute de l\'argent pour acheter ce cadeau',
 
             'Port-des-Barques':'Pascale et Jean-Yves',
             'Manu':'Manu',

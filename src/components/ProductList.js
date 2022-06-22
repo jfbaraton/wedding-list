@@ -32,7 +32,15 @@ class ProductList extends Component {
         return (
             <div className="container main-content">
                 {this.props.items.map(item => (
-                    <ProductRow price={item.price+'€'} item_name={item.name} key={item.id} is_completed={item.is_completed || false} contributions={item.contributions || 0}/>
+                    <ProductRow
+                        price={item.price+'€'}
+                        item_name={item.name}
+                        item_id={item.id}
+                        key={item.id}
+                        is_completed={item.is_completed || false}
+                        contributions={item.contributions || 0}
+                        payAction = {this.props.payAction}
+                        />
                 ))}
             </div>
         );

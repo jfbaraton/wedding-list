@@ -2,6 +2,7 @@
 
 const express = require("express");
 const bodyParser = require('body-parser');
+var escape = require('sql-escape');
 var connection  = require('express-myconnection');
 var mysql = require('mysql');
 
@@ -10,18 +11,21 @@ const PORT = process.env.PORT || 3001;
 const app = express();
 app.use(bodyParser.json());
 
+const SQLsanitize = (text) => {
+    if(!text) return '';
+    return escape(text)
+}
 
 app.use(
+   connection(mysql,{
 
-        connection(mysql,{
+        host: 'localhost', //'localhost',
+        user: 'jeff',
+        password : 'aquarium',
+        port : 3306, //port mysql
+        database:'wedding'
 
-            host: 'localhost', //'localhost',
-            user: 'jeff',
-            password : 'aquarium',
-            port : 3306, //port mysql
-            database:'wedding'
-
-        },'pool')
+   },'pool')
 ); //or single
 
 app.get("/items", (req, res) => {
@@ -41,21 +45,9 @@ app.get("/items", (req, res) => {
 
          });
     });
-
-        /*
-
-    res.json({
-        message: "Hello from Express2222222!",
-        contributions: [
-            {price:10, item_name:'baking_robot'},
-            {},
-        ]
-    });
-            */
 });
 
 app.get("/contributions", (req, res) => {
-    //console.log('GET contributions ');
     req.getConnection(function(err, myconnection) {
         if (err) {
             console.log("Error getConnection : %s ",err );
@@ -73,7 +65,6 @@ app.get("/contributions", (req, res) => {
     });
 });
 app.get("/mySettings", (req, res) => {
-    console.log('GET mySettings ');
     if(req.query && req.query.px && req.query.px.length < 10) {
         req.getConnection(function(err, myconnection) {
             if (err) {
@@ -81,7 +72,7 @@ app.get("/mySettings", (req, res) => {
                 res.send(500);
             }
 
-            myconnection.query('SELECT language FROM people where hash = \''+req.query.px+'\'',function(err,rows) {
+            myconnection.query('SELECT name, language FROM people where hash = \''+req.query.px+'\'',function(err,rows) {
 
                 if(err)
                     console.log("Error Selecting : %s ",err );
@@ -97,7 +88,6 @@ app.get("/mySettings", (req, res) => {
 
 app.get("/myContributions", (req, res) => {
     if(req.query && req.query.px && req.query.px.length < 10) {
-        //console.log('GET myContributions "'+req.query.px+'"');
         req.getConnection(function(err, myconnection) {
             if (err) {
                 console.log("Error getConnection : %s ",err );
@@ -114,36 +104,38 @@ app.get("/myContributions", (req, res) => {
             });
         });
     } else {
-        //console.log('GET myContributions NOPARAM '+(req.query ? req.query.px :0));
         res.json({myContributions:[]});
     }
 });
 
-app.post('/add_book',(req,res)=>{
+app.post('/pay',(req,res)=>{
 
-    let {book_name,author} = req.body;
-
-
-    if(!book_name) return res.status(400).json('Book Name cant be blank');
-    if(!author) return res.status(400).json('Author cant be blank');
-
-    var data={book_name:book_name,
-              author:author};
+    let {px,item_id, amount, message} = req.body;
 
 
-    var query = connection.query("INSERT INTO books set ? ",data,
-        function(err, rows)
-        {
-            if (err) {
-            //If error
-                res.status(400).json('Sorry!!Unable To Add');
-                console.log("Error inserting : %s ",err );
-            }else {
-            //If success
-                res.status(200).json('Book Added Successfully!!')
-            }
+    if(!px || px.length > 10 ) return res.status(400).json('Arg');
+    if(!item_id) return res.status(400).json('Arg item_id');
+    if(!amount || amount<=0 || amount >10000) return res.status(400).json('Arg amount');
+
+    req.getConnection(function(err, myconnection) {
+        if (err) {
+            console.log("Error getConnection : %s ",err );
+            res.send(500);
+        }
+
+        myconnection.query("INSERT INTO contributions (item_id, people_id, comment, type, amount) VALUES (5,(SELECT id from people where hash='"+SQLsanitize(px)+"'), '"+SQLsanitize(message)+"', 'Pay' , "+amount+")",
+            function(err, rows)
+            {
+                if (err) {
+                //If error
+                    res.status(400).json('Sorry!!Unable To Add');
+                    console.log("Error inserting : %s ",err );
+                }else {
+                //If success
+                    res.status(200).json('Contribution Added Successfully!!')
+                }
+        });
     });
-
 });
 
 app.listen(PORT, () => {

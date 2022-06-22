@@ -9,6 +9,7 @@ function App() {
     const [items, setItems] = React.useState(null);
     const [contributions, setContributions] = React.useState(null);
     const [myContributions, setMyContributions] = React.useState(null);
+    const [myName, setMyName] = React.useState(null);
 
     const qs = require('qs');
 
@@ -29,12 +30,32 @@ function App() {
 
     var lang = localStorage.getItem('lang');
 
+
+    const payAction = (item_id, amount, message) => {
+        const payRequestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                px:localStorage.getItem('px'),
+                item_id:item_id,
+                amount:amount,
+                message:message
+            })
+        };
+        fetch('/pay', payRequestOptions)
+        .then(response => response.json())
+        .then(data => this.setState({ update: Date.now() }));
+    }
+
     React.useEffect(() => {
         fetch("/mySettings?px="+px)
             .then((res) => res.json())
             .then((data) => {
-                    if(!lang) {
-                        changeLanguage(data.mySettings.length && data.mySettings[0].language || 'en');
+                    if(data.mySettings.length) {
+                        if(!lang) {
+                            changeLanguage(data.mySettings[0].language || 'en');
+                        }
+                        setMyName(data.mySettings[0].name);
                     }
                 }
             );
@@ -88,16 +109,22 @@ function App() {
                 <a onClick={() => changeLanguage("ru")}>🇷🇺</a>
             </header>
             <p>
-                {!myContributions ? "Loading..." : !myContributions.length ? '' : (
+                {!myName || !myContributions ? "" : (
                     t('your_contribution_0')+
-                    t(myContributions[0].name)+
+                    t(myName)
+                )}
+                {!myName || !myContributions ? "" : !myContributions.length ? '' : (
                     t('your_contribution_1')+
                     (myContributions[0].type == 'Pay' ? (myContributions[0].amount+'€') : (myContributions[0].gift_count+t('your_contribution_3')))+
                     (myContributions.length == 1 ? '.' : (t('your_contribution_2') + (myContributions[1].type == 'Pay' ? (myContributions[1].amount+'€') : (myContributions[1].gift_count+t('your_contribution_3'))) +'.'))
                 )}
 
             </p>
-            <ProductList items={!items ? [] : items} contributions={!contributions ? [] : contributions}/>
+            <ProductList
+                items={!items ? [] : items}
+                contributions={!contributions ? [] : contributions}
+                payAction = {payAction}
+                />
         </div>
     );
 }
