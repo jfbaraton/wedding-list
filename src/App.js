@@ -120,28 +120,29 @@ function App() {
 
     return (
         <div className="App">
-            <header className="App-header">
-                <a onClick={() => changeLanguage("en")}>🇬🇧</a>
-                <a onClick={() => changeLanguage("fr")}>🇫🇷</a>
-                <h2>{t("Welcome to List")}</h2>
-                <a onClick={() => changeLanguage("fi")}>🇫🇮</a>
-                <a onClick={() => changeLanguage("ru")}>🇷🇺</a>
-            </header>
-            <header className="App-header-feedback">
-                {!myName || !myContributions ? "" : (
-                    t('your_contribution_0')+
-                    t(myName)
-                )}
-                {!myName || !myContributions ? "" : !myContributions.length ? '' : (
-                    t('your_contribution_1')+
-                    (myContributions[0].type == 'Pay' ? (myContributions[0].amount+'€') : (myContributions[0].gift_count+t('your_contribution_3')))+
-                    (myContributions.length == 1 ? '.' : (t('your_contribution_2') + (myContributions[1].type == 'Pay' ? (myContributions[1].amount+'€') : (myContributions[1].gift_count+t('your_contribution_3'))) +'.'))+
-                    t('your_contribution_4')
-                )}
-                {!myName || !myContributions ? "" : !myContributions.length ? '' : renderCancelButton()}
+            <div className="App-header">
+                <header className="App-header-title">
+                    <a onClick={() => changeLanguage("en")}>🇬🇧</a>
+                    <a onClick={() => changeLanguage("fr")}>🇫🇷</a>
+                    <h2>{t("Welcome to List")}</h2>
+                    <a onClick={() => changeLanguage("fi")}>🇫🇮</a>
+                    <a onClick={() => changeLanguage("ru")}>🇷🇺</a>
+                </header>
+                <header className="App-header-feedback">
+                    {!myName || !myContributions ? "" : (
+                        t('your_contribution_0')+
+                        t(myName)
+                    )}
+                    {!myName || !myContributions ? "" : !myContributions.length ? '' : (
+                        t('your_contribution_1')+
+                        (myContributions[0].type == 'Pay' ? (myContributions[0].amount+'€') : (myContributions[0].gift_count+t('your_contribution_3')))+
+                        (myContributions.length == 1 ? '.' : (t('your_contribution_2') + (myContributions[1].type == 'Pay' ? (myContributions[1].amount+'€') : (myContributions[1].gift_count+t('your_contribution_3'))) +'.'))+
+                        t('your_contribution_4')
+                    )}
+                    {!myName || !myContributions ? "" : !myContributions.length ? '' : renderCancelButton()}
 
-            </header>
-
+                </header>
+            </div>
             <ProductList
                 items={!items ? [] : items}
                 contributions={!contributions ? [] : contributions}

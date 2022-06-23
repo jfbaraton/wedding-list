@@ -14,7 +14,13 @@
 }
 
 .App-header {
-    background-color: #282c34;
+    position: fixed;
+    top: 0px;
+    width: 100%;
+}
+
+.App-header-title {
+    background-color: #FFD1DC;
     height: 5vh;
     display: flex;
     flex-direction: row;
@@ -23,10 +29,11 @@
     //margin: 1rem 1rem 1rem 1rem;
     justify-content: center;
     font-size: calc(10px + 2vmin);
-    color: white;
+    color: #FFFFF0;
 }
 
 .App-header-feedback {
+    background-color: #FFFFF0;
     height: 5px;
     display: flex;
     flex-direction: row;
@@ -34,7 +41,7 @@
     justify-content: center;
 }
 
-.App-header a {
+.App-header-title a {
     flex-direction: row;
     margin: 1rem 1rem 1rem 1rem;
 }
