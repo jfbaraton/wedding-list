@@ -47,7 +47,6 @@ function App() {
         .then(response => response.json())
         .then(data => {
             setUpdateTime(Date.now());
-            console.log(updateTime);
         });
     }
 
@@ -66,7 +65,6 @@ function App() {
         .then(response => response.json())
         .then(data => {
             setUpdateTime(Date.now());
-            console.log(updateTime);
         });
     }
 
@@ -82,7 +80,6 @@ function App() {
         .then(response => response.json())
         .then(data => {
             setUpdateTime(Date.now());
-            console.log(updateTime);
         });
     }
 
@@ -109,21 +106,11 @@ function App() {
         fetch("/contributions")
             .then((res) => res.json())
             .then((data) => setContributions(data.contributions));
-            /*.then((data) =>
-                setState((prevState) => ({
-                   contributions: data.contributions
-                }))
-            );*/
     }, [updateTime]);
     React.useEffect(() => {
         fetch("/myContributions?px="+px)
             .then((res) => res.json())
             .then((data) => setMyContributions(data.myContributions));
-            /*.then((data) =>
-                setState((prevState) => ({
-                   contributions: data.contributions
-                }))
-            );*/
     }, [updateTime]);
 
 

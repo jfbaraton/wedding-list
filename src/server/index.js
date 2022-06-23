@@ -94,8 +94,12 @@ app.get("/myContributions", (req, res) => {
                 res.send(500);
             }
 
-            myconnection.query('SELECT ppl.name as name, count(cont.item_id) as gift_count, cont.type as type, sum(cont.amount) as amount FROM contributions as cont join people as ppl on cont.people_id = ppl.id where cont.state = 0 and ppl.hash = \''+req.query.px+'\' group by type',function(err,rows) {
-
+            myconnection.query(
+            'SELECT ppl.name as name, count(cont.item_id) as gift_count, cont.type as type, sum(cont.amount) as amount '+
+            'FROM contributions as cont join people as ppl on cont.people_id = ppl.id '+
+            'WHERE cont.state = 0 and ppl.hash = \''+req.query.px+'\' and '+
+            '(cont.type = \'Buy\' or (cont.type = \'Pay\' and cont.item_id not in (SELECT item_id FROM contributions WHERE state = 0 and people_id = ppl.id and type = \'Buy\' ))) group by type',
+            function(err,rows) {
                 if(err)
                     console.log("Error Selecting : %s ",err );
 
