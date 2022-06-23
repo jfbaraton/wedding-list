@@ -1,0 +1,78 @@
+
+
+.main-content {
+    margin-top: 2rem;
+    background-color: #282c34;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+}
+
+.product {
+    margin: 0.5rem 0.5rem 0.5rem 0.5rem;
+    background-image: url('../../public/flower_frame.png');
+    background-size: cover;
+    height:600px;
+    width:600px;
+}
+
+.product-img-container {
+    margin: 50px 80px 0px 180px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.product-img {
+    height:150px;
+    width:150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.product-detail {
+    display: flex;
+    flex-direction: column;
+    width:500px;
+    height:140px
+}
+
+.product-img-name {
+    display: flex;
+    justify-content: center;
+    padding: 10px 0px 0px 0px;
+    font-weight: bold;
+    font-size: 140%;
+    height:70px
+}
+
+.product-detail-desc {
+    display: flex;
+    margin: 10px 10px 0px 30px;
+    //align-items: center;
+    height:100px
+}
+
+.product-price {
+    display: flex;
+    margin: 0px 180px 0px 80px;
+    //padding: 0px 50px;
+    font-weight: bold;
+    font-size: 140%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.product-buttons {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}

@@ -127,7 +127,7 @@ function App() {
                 <a onClick={() => changeLanguage("fi")}>🇫🇮</a>
                 <a onClick={() => changeLanguage("ru")}>🇷🇺</a>
             </header>
-            <p>
+            <header className="App-header-feedback">
                 {!myName || !myContributions ? "" : (
                     t('your_contribution_0')+
                     t(myName)
@@ -140,7 +140,8 @@ function App() {
                 )}
                 {!myName || !myContributions ? "" : !myContributions.length ? '' : renderCancelButton()}
 
-            </p>
+            </header>
+
             <ProductList
                 items={!items ? [] : items}
                 contributions={!contributions ? [] : contributions}

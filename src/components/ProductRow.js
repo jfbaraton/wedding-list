@@ -1,4 +1,5 @@
 import React from 'react';
+import './ProductList.css';
 //import sampleImage from '/logo192.png';
 
 import { useTranslation, Trans } from "react-i18next";
@@ -81,18 +82,18 @@ const ProductRow = (props) => {
 
     return (
     <div className="row product">
-        <div className="col-md-2">
-            <img src={process.env.PUBLIC_URL+ (props.item_name ? '/'+props.item_name+'.jpg' : '/logo192.png')} alt={props.item_name || 'gift'} height="150" />
+        <div className="col-md-2 product-img-container">
+            <img className="col-md-2 product-img" src={process.env.PUBLIC_URL+ (props.item_name ? '/'+props.item_name+'.jpg' : '/logo192.png')} alt={props.item_name || 'gift'}  />
+            <div className="product-img-name"><Trans i18nKey={props.item_name || 'blue_tshirt'}>trans</Trans></div>
         </div>
-        <div className="col-md-8 product-detail">
-            <h4><Trans i18nKey={props.item_name || 'blue_tshirt'}>trans</Trans></h4>
-            <p><Trans i18nKey={(props.item_name || 'blue_tshirt')+'_desc'}>trans</Trans></p>
+        <div className="col-md-2 product-detail">
+            <div className="product-detail-desc"><Trans i18nKey={(props.item_name || 'blue_tshirt')+'_desc'}>trans</Trans></div>
         </div>
         <div className="col-md-2 product-price">
             {props.is_completed || isCompleted ? t('item_completed') : ( (props.contributions ? props.contributions+'€ ' : '0€')+ (props.item_id > 1 ? '/ '+(props.price || '-19.99')+'€' : ''))}
-            <div>
-            {renderBuyButton(props, pay)}
-            {renderPayButton(props, pay)}
+            <div className="col-md-2 product-buttons">
+                {renderBuyButton(props, pay)}
+                {renderPayButton(props, pay)}
             </div>
         </div>
 
